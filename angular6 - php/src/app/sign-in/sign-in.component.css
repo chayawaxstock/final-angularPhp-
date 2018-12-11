@@ -27,7 +27,7 @@ input{
   margin-bottom: 2vh
 }
 #picture{
-  background-image: url("src/assets/pictures/Picture2.jpg")!important;
+  background-image: url("src/assets/pictures/background.jpg")!important;
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
@@ -38,7 +38,7 @@ input{
 
 } 
 #icon{
-  background-image: url("src/assets/pictures/background.jpg")!important;
+  background-image: url("src/assets/pictures/checked.png")!important;
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
