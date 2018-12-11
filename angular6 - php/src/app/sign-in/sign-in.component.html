@@ -1,8 +1,14 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="signWindow">
 <div class="back"></div>
 <div class="container">
-    <div class="card card-container">
-
+    <div>
+        <p class="title">Manage task</p>
+    </div>
+    <div class="card card-container sign">
+        <div id="picture"> </div>
+        <div id="icon"> </div>
+        <div class="signForm">
         <p id="profile-name" class="header">WELLCOME -SIGN IN </p>
 
         <form class="form-signin" [formGroup]="formGroup" (ngSubmit)="submitRegister()" name="formUser">
@@ -30,8 +36,10 @@
                 in</button>
 
         </form>
+    </div>
         <a href="javascript:void(0)" class="forgot-password" (click)="forgetPassword()">
             Forgot the password?
         </a>
     </div>
+</div>
 </div>
