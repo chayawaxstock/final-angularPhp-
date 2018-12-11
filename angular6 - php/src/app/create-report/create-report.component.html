@@ -1,0 +1,59 @@
+
+<div *ngIf="reportProject.length>0">
+<kendo-grid
+        [data]="gridData"
+        [filter]="filter"
+        [filterable]="true"
+        (filterChange)="filterChange($event)"
+        [pageSize]="state.take"
+        [skip]="state.skip"
+        [sort]="state.sort"
+        [height]="410"
+        [pageable]="{
+          buttonCount: buttonCount,
+          info: info,
+          type: type,
+          pageSizes: [5, 10, 20],
+          previousNext: previousNext
+        }"
+        >
+	<ng-template kendoGridToolbarTemplate>
+	  <button type="button" (click)="exportAsXLSX()" kendoGridExcelCommand icon="file-excel">Export to Excel</button>
+	</ng-template>
+    <kendo-grid-column field="name" title="Project Name" width="120">
+    </kendo-grid-column>
+    <kendo-grid-column field="customerName" width="120">
+    </kendo-grid-column>
+    <kendo-grid-column field="totalHours"   filter="numeric" width="120">
+    </kendo-grid-column>
+    <kendo-grid-column title="dateBegin" width="200">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <div *ngIf="dataItem.dateBegin!=null">{{ dataItem.dateBegin | date:"shortDate" }}</div>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column title="dateEnd" width="200">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <div *ngIf="dataItem.dateEnd!=null">{{ dataItem.dateEnd | date:"shortDate" }}</div>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="daysleft"  filter="numeric" width="120">
+    </kendo-grid-column>
+    <kendo-grid-column field="sumHoursDo" title="HoursDo" filter="numeric" width="200"> 
+    </kendo-grid-column>
+    <kendo-grid-column field="precentsDone"  filter="numeric" width="200">
+    </kendo-grid-column>
+    <kendo-grid-column field="isFinish" >
+        <ng-template kendoGridFilterCellTemplate>
+            <kendo-switch
+                (valueChange)="switchChange($event)"
+                offLabel="No"
+                [checked]="checked"
+                onLabel="Yes">
+            </kendo-switch>
+        </ng-template>
+    </kendo-grid-column>
+        <div *kendoGridDetailTemplate="let dataItem">
+            <app-department-details [department]="dataItem.items"></app-department-details>
+        </div>
+    </kendo-grid>
+</div>

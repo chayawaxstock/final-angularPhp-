@@ -1,0 +1,26 @@
+<div class="card cardStyle">
+  <div class="card-header">{{project.projectName}}</div>
+  <div class="card-body">
+    <strong>Customer:</strong> {{project.customerName}}<br>
+
+    <strong>NumHourForProject:</strong> {{project.numHourForProject}}<br>
+    <strong>DateBegin:</strong> {{project.dateBegin | date: 'dd/MM/yyyy'}}<br>
+    <strong>DateEnD:</strong> {{project.dateEnd | date: 'dd/MM/yyyy'}}<br>
+    <strong>IsFinish</strong> {{project.isFinish}}<br>
+    <strong>Manager:</strong> {{project.manager.userName}}<br>
+    <strong>Hours for department</strong>
+    <div *ngFor="let department of project.hoursForDepartment">
+      <strong>{{department.departmentUser.department}}</strong>
+      {{department.sumHours}}<br>
+    </div>
+
+    <p>
+      <button class="btn btn-link" (click)="showWorker()">Show worker</button><br>
+      <button class="btn btn-link" (click)="addWorkerToProject()">Add workers to project</button><br>
+      <button class="btn btn-link" (click)="editProject()">Edit project</button><br>
+      <button class="btn btn-link" (click)="delete()">Delete project</button><br>
+    </p>
+
+  </div>
+
+</div>

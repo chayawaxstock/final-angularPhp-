@@ -1,0 +1,4 @@
+<button class="k-button k-primary" (click)="addProject()">Add project</button>
+<div class="card-deck" >
+  <app-project-template *ngFor="let project of projects" [project]="project" (deleteProject)='deleteProject($event)'></app-project-template>
+</div>

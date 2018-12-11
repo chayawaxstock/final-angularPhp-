@@ -1,0 +1,83 @@
+
+<kendo-dialog *ngIf="active" (close)="closeForm()">
+
+    <kendo-dialog-titlebar>
+        {{ isNew ? 'Add project' : 'Edit project' }}
+    </kendo-dialog-titlebar>
+
+    <form novalidate [formGroup]="formGroup">
+        <div class="form-group">
+            <label for="projectName" class="control-label">Project name</label>
+
+            <input type="text" class="k-textbox" formControlName="projectName" name="name" />
+            <div class="help-block" *ngIf="formGroup.controls['projectName'].errors&&formGroup.controls['projectName'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['projectName'].errors)">{{err}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerName" class="control-label">customerName</label>
+            <input type="text" class="k-textbox" formControlName="customerName" name="customerName" />
+            <div class="help-block" *ngIf="formGroup.controls['customerName'].errors&&formGroup.controls['customerName'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['customerName'].errors)">{{err}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="numHourForProject" class="control-label">Enter numHourForProject</label>
+            <input type="number" class="k-textbox" formControlName="numHourForProject" name="numHourForProject" />
+            <div class="help-block" *ngIf="formGroup.controls['numHourForProject'].errors&&formGroup.controls['numHourForProject'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['numHourForProject'].errors)">{{err}}</p>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-6 example-col">
+            <p>Date begin</p>
+            <kendo-datepicker formControlName="dateBegin"  [format]="'dd-MM-yyyy '"  >
+            </kendo-datepicker>
+            <div class="help-block" *ngIf="formGroup.controls['dateBegin'].errors&&formGroup.controls['dateBegin'].touched">
+                    <p *ngFor="let err of obj.values(formGroup.controls['dateBegin'].errors)">{{err}}</p>
+                </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 example-col">
+            <p>Date end</p>
+            <kendo-datepicker formControlName="dateEnd"  [format]="'dd-MM-yyyy '" > 
+            </kendo-datepicker>
+            <div class="help-block" *ngIf="formGroup.controls['dateEnd'].errors&&formGroup.controls['dateEnd'].touched">
+                    <p *ngFor="let err of obj.values(formGroup.controls['dateEnd'].errors)">{{err}}</p>
+                </div>
+        </div>
+
+
+
+        <div class="example-wrapper" *ngIf="projectManager">
+            <p>chooseDepartment</p>
+            <div *ngIf="departments.length>0">
+                <kendo-dropdownlist formControlName="idManager" [data]="teamLeaders" [textField]="'userName'"
+                    [valueField]="'userId'" [valuePrimitive]="true">
+                </kendo-dropdownlist>
+            </div>
+        </div>
+
+        <div *ngFor="let department of departments;index as i">
+            <app-edit-hours-for-department [hourForDepartent]="project.hoursForDepartment[i]" (numDepartment)='numDepartment($event)'></app-edit-hours-for-department>
+        </div>
+
+        <div class="example-wrapper">
+            <p>teamleader</p>
+            <kendo-dropdownlist formControlName="idManager" [data]="usersByDepartments" [textField]="'text'"
+                [valueField]="'value'" [valuePrimitive]="true">
+            </kendo-dropdownlist>
+        </div>
+
+        <input type="checkbox" (change)="Ischecked()">
+        <kendo-dialog-actions>
+
+            <button class="k-button" (click)="onCancel($event)">Cancel</button>
+            <button *ngIf="isNew" class="k-button k-primary" [disabled]="formGroup.invalid" (click)="addProject()"> Add</button>
+            <button *ngIf="!isNew" class="k-button k-primary" [disabled]="formGroup.invalid" (click)="editProject()">
+                Edit</button>
+        </kendo-dialog-actions>
+
+
+    </form>

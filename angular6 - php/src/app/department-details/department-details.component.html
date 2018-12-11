@@ -1,0 +1,13 @@
+
+    <kendo-grid
+      [data]="department"
+      selectable="true"
+      >
+      <kendo-grid-column field="name"></kendo-grid-column>
+      <kendo-grid-column field="totalHours"></kendo-grid-column>
+      <kendo-grid-column field="sumHoursDo"></kendo-grid-column>
+      <kendo-grid-column field="precentsDone"></kendo-grid-column>
+      <div *kendoGridDetailTemplate="let dataItem">
+        <app-worker-details [workers]="dataItem.items"></app-worker-details>
+      </div>
+    </kendo-grid>

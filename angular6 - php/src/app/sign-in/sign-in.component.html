@@ -1,0 +1,37 @@
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="back"></div>
+<div class="container">
+    <div class="card card-container">
+
+        <p id="profile-name" class="header">WELLCOME -SIGN IN </p>
+
+        <form class="form-signin" [formGroup]="formGroup" (ngSubmit)="submitRegister()" name="formUser">
+            <span id="reauth-email" class="reauth-email"></span>
+
+            <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName" name="name">
+            <div class="help-block" *ngIf="formGroup.controls['userName'].errors&&formGroup.controls['userName'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['userName'].errors)">{{err}}</p>
+            </div>
+
+            <input class="form-control" type="password" placeholder="Enter password" formControlName="password" name="password">
+            <div class="help-block" *ngIf="formGroup.controls['password'].errors&&formGroup.controls['password'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['password'].errors)">{{err}}</p>
+            </div>
+
+
+            <div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me" formControlName="remember"> Remember me
+                </label>
+            </div>
+            <div class="g-recaptcha" data-sitekey="6Lcu138UAAAAAD_L1R6JDBR8IVSBQH0OPIda_HsU"></div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" [disabled]="formGroup.invalid">Sign
+                in</button>
+
+        </form>
+        <a href="javascript:void(0)" class="forgot-password" (click)="forgetPassword()">
+            Forgot the password?
+        </a>
+    </div>
+</div>

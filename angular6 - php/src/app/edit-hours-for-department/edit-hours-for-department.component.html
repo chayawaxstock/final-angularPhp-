@@ -1,0 +1,6 @@
+<label>
+  {{hourForDepartent.departmentUser.department}}
+</label>
+<input  [(ngModel)]="hourForDepartent.sumHours" [value]="hourForDepartent.sumHours"  name="numHourForDepartment" type="number" (input)="changeNumHour()" min="2" max="10000">
+
+

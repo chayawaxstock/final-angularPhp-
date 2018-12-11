@@ -1,0 +1,29 @@
+<app-header></app-header>
+<nav class="main-menu">
+
+  <ul class="margin-top">
+
+    <li class=" has-subnav">
+      <a href="#">
+        <i class="fa fas fa-tasks fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/worker/myTasks']">my task</a>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="#">
+        <i class=" fa far fa-envelope fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/worker/conectManager']">conectManager</a>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="#">
+        <i class="fa fas fa-signal fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/worker/grafStatus']">grafStatus</a>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<body class="body">
+  <router-outlet></router-outlet>
+</body>

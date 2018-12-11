@@ -1,0 +1,29 @@
+<div *ngIf="reportWorker.length>0">
+    <kendo-grid [data]="gridData" [filter]="filter" [filterable]="true" (filterChange)="filterChange($event)"
+        [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [height]="410" [pageable]="{
+            buttonCount: buttonCount,
+            info: info,
+            type: type,
+            pageSizes: [5, 10, 20],
+            previousNext: previousNext
+          }">
+
+
+        <ng-template kendoGridToolbarTemplate>
+            <button type="button" (click)="exportAsXLSX()" kendoGridExcelCommand icon="file-excel">Export to Excel</button>
+        </ng-template>
+        <kendo-grid-column field="name" title="Worker Name" width="120">
+        </kendo-grid-column>
+        <kendo-grid-column field="department" width="120">
+        </kendo-grid-column>
+        <kendo-grid-column field="totalHours" filter="numeric" width="120">
+        </kendo-grid-column>
+        <kendo-grid-column field="teamLeader" width="120">
+        </kendo-grid-column>
+
+        <div *kendoGridDetailTemplate="let dataItem">
+            <app-report-worker-template [pressents]="dataItem.items"></app-report-worker-template>
+        </div>
+
+    </kendo-grid>
+</div>

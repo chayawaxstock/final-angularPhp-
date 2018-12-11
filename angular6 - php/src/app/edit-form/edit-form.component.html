@@ -1,0 +1,67 @@
+<kendo-dialog *ngIf="active" (close)="closeForm()">
+
+    <kendo-dialog-titlebar>
+      {{ isNew ? 'Add new user' : 'Edit user' }}
+    </kendo-dialog-titlebar>
+
+      <form novalidate [formGroup]="formGroup">
+          <div class="form-group">
+              <label for="userName" class="control-label">User name</label>
+              <input type="text" class="k-textbox" formControlName="userName" />
+              <div class="help-block" *ngIf="formGroup.controls['userName'].errors&&formGroup.controls['userName'].touched">
+                  <p *ngFor="let err of obj.values(formGroup.controls['userName'].errors)">{{err}}</p>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="email" class="control-label">email</label>
+              <input type="email" class="k-textbox" formControlName="email" />
+              <div class="help-block" *ngIf="formGroup.controls['email'].errors&&formGroup.controls['email'].touched">
+                  <p *ngFor="let err of obj.values(formGroup.controls['email'].errors)">{{err}}</p>
+              </div>
+          </div>
+
+          <div *ngIf="isNew" class="form-group">
+             <label for="password" class="control-label">password</label>
+             <input type="password" class="k-textbox" formControlName="password" />
+             <div class="help-block" *ngIf="formGroup.controls['password'].errors&&formGroup.controls['password'].touched">
+                <p *ngFor="let err of obj.values(formGroup.controls['password'].errors)">{{err}}</p>
+            </div>
+          </div>
+
+           <div  *ngIf="isNew" class="form-group">
+              <label for="confirmPassword" class="control-label">confirmPassword</label>
+              <input type="password" class="k-textbox" formControlName="confirmPassword" />
+              <div class="help-block" *ngIf="formGroup.controls['confirmPassword'].errors&&formGroup.controls['confirmPassword'].touched">
+                  <p *ngFor="let err of obj.values(formGroup.controls['confirmPassword'].errors)">{{err}}</p>
+              </div>
+           </div>
+
+           <div class="form-group">
+              <label for="numHoursWork" class="control-label">numHoursWork</label>
+              <input type="number" class="k-textbox" formControlName="numHoursWork" />
+              <div class="help-block" *ngIf="formGroup.controls['numHoursWork'].errors&&formGroup.controls['numHoursWork'].touched">
+                  <p *ngFor="let err of obj.values(formGroup.controls['numHoursWork'].errors)">{{err}}</p>
+              </div>
+          </div>
+
+            <div class="example-wrapper">
+                <p>chooseDepartment</p>
+                  <div *ngIf="departments.length>0">
+                     <kendo-dropdownlist   formControlName="departmentId"  [data]="departments"   [textField]="'text'"
+                           [valueField]="'value'" [valuePrimitive]="true"   [defaultItem]="defaultItem" (valueChange)="chooseDepartment($event)" >
+                     </kendo-dropdownlist>
+                   </div>
+             </div>
+
+           <div class="example-wrapper">
+               <p>teamleader</p>
+                 <kendo-dropdownlist  formControlName="managerId"  *ngIf="user" [data]="usersByDepartments"  [textField]="'text'" [valueField]="'value'" [valuePrimitive]="true"  [defaultItem]="defaultItemTeamleader"    >
+                 </kendo-dropdownlist>
+           </div>          
+      </form>
+
+      <kendo-dialog-actions >
+          <button class="k-button" (click)="onCancel($event)">Cancel</button>
+          <button class="k-button k-primary" [disabled]="!formGroup.valid" (click)="onSave($event)">Save</button>
+      </kendo-dialog-actions>

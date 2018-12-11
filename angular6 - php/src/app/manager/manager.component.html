@@ -1,0 +1,35 @@
+<app-header></app-header>>
+<nav class="main-menu">
+  <ul>
+    <div class="nav-header"> </div>
+    <li class="has-subnav">
+      <a href="#">
+        <i class=" fa fas fa-user fa-2x"></i>
+        <a class="nav-text" (click)="allUsers()" [routerLink]="['/manager/allUsers']">all user</a>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="#">
+        <i class="fa fas fa-tasks fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/manager/allProjects']">allProjects</a>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="#">
+        <i class="fa far fa-file fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/manager/reports']">reports projects</a>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="javascrpt:void(0)">
+        <i class="fa far fa-file fa-2x"></i>
+        <a class="nav-text" [routerLink]="['/manager/reportsWorker']">reports worker</a>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<body style="margin-left:100px">
+
+  <router-outlet></router-outlet>
+</body>

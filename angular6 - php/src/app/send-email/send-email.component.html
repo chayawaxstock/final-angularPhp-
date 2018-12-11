@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Conect to manager</h2>
+  <div></div>
+  <form [formGroup]="formGroup" (ngSubmit)="sendEmail()" name="formEmail">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">subject</label>
+      <div class="col-sm-6">
+        <input kendoTextBox type="text" formControlName="subject" class="form-control" placeholder="subject" name="input">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">message</label>
+      <div class="col-sm-10">
+        <textarea kendoTextArea [autoSize]="true" formControlName="body" placeholder="enter message here" name="name"></textarea>
+      </div>
+    </div>
+    <div class="help-block" *ngIf="formGroup.controls['body'].errors&&formGroup.controls['body'].touched">
+      <p *ngFor="let err of obj.values(formGroup.controls['body'].errors)">{{err}}</p>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-8 col-md-4 margin-left">
+        <button kendoButton type="submit" class="btn-lg" [disabled]="formGroup.invalid">send email</button>
+      </div>
+    </div>
+
+  </form>
+</div>

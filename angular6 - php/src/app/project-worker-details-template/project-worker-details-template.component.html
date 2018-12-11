@@ -1,0 +1,7 @@
+<li *ngIf="workerProject">
+ <b>name:</b> {{workerProject.user.userName}} <br>
+  <b>Email:</b> {{workerProject.user.email}}<br>
+  <b>HoursForProject:</b> {{workerProject.hoursForProject}}<br>
+  <b>SumHoursDone:</b> {{workerProject.sumHoursDone}}<br>
+  <button title="edit hours" class="btn btn-link" (click)="editHours(workerProject)">edit hours </button>
+</li>

@@ -1,0 +1,23 @@
+<div class="cd-faq-items possition" id="info">
+    <ul  class="cd-faq-group" >
+
+        <div><strong>name: </strong>{{project.projectName}}</div>
+
+        <div><strong>customer: </strong>{{project.customerName}}</div>
+
+        <div><strong>num hours: </strong>{{project.numHourForProject}}</div>
+
+        <div><strong>date begin: </strong>{{project.dateBegin | date : "dd/MM/yyyy"}}</div>
+
+        <div><strong>date end: </strong>{{project.dateEnd | date : "dd/MM/yyyy"}}</div>
+
+        <button kendoButton [look]="'outline'" [primary]="true" (click)="showGraphHours(project)">show graph hours</button>
+    </ul>
+
+    <div class="cd-faq-trigger" id={{project.projectId}} (click)="showMoreDetails(project.projectId)"> </div>
+    <div *ngIf="toggle&&workersForProject.length>0">
+        <ul>
+            <app-project-worker-details-template *ngFor="let item of workersForProject" [workerProject]="item" [sumHoursStay]="sumHoursStay" (changeSumHoursStay)="changeSumHoursStay($event)"></app-project-worker-details-template>
+        </ul>
+    </div>
+</div>
