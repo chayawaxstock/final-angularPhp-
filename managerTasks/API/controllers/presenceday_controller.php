@@ -13,7 +13,6 @@ class presenceday_controller {
     }
 
     function add_present($pressantDay) {
-
         return $this->presenceday_service->add_present($pressantDay);
     }
 

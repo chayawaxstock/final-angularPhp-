@@ -6,7 +6,7 @@ class presenceday_service {
         $date = date('Y-m-d H:i:s');
 
         $query = "select max(presentDayId) from presentday where id = '{$presence_day['userId']}' and projectId ='{$presence_day['projectId']}'";
-   $resault= db_access::run_scalar($query)[0];
+        $resault = db_access::run_scalar($query)[0];
 
         $query = "UPDATE `managertasks`.`presentday`SET`timeEnd` = '{$date}' WHERE presentDayId = {$resault} and id ='{$presence_day['userId']}' and projectId = '{$presence_day['projectId']}'";
         return db_access::run_non_query($query)->affected_rows;

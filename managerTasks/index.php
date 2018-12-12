@@ -18,7 +18,6 @@ $method_name = $exploded_path[count($exploded_path) - 1];
 
 date_default_timezone_set('Asia/Jerusalem');
 
-
 $type = $_SERVER['REQUEST_METHOD'];
 if ($type == 'GET' || $type == 'DELETE')
     $params = $_GET;
@@ -30,7 +29,6 @@ else if ($type == 'POST' || $type == 'PUT') {
         $params = $params + $_GET;
     }
 }
-
 
 echo $routes_loader->invoke($controller_name, $method_name, $params);
 
