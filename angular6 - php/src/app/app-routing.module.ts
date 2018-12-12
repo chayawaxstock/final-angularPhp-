@@ -29,8 +29,10 @@ const appRoutes: Routes = [
     { path: "", component: SignInComponent },
     { path: "changePassword/:requestId", component: ChangePasswordComponent },
     { path: "changePassword", component: ChangePasswordComponent },
-    { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard],
-     children: [
+    {
+        path: 'manager', component: ManagerComponent, canActivate: [AuthGuard],
+        children: [
+            { path: '', component: AllProjectsComponent, canActivate: [AuthGuard, AuthGuardManager]},
             { path: 'showWorkers', component: WorkersManagementComponent, canActivate: [AuthGuard, AuthGuardManager] },
             { path: 'allUsers', component: IsShowComponent, canActivate: [AuthGuard, AuthGuardManager] },
             { path: 'editUser', component: UpdateUserComponent, canActivate: [AuthGuard, AuthGuardManager] },
@@ -41,7 +43,8 @@ const appRoutes: Routes = [
             { path: 'reportsWorker', component: ReportWorkrtsComponent, canActivate: [AuthGuard, AuthGuardManager] },
         ]
     },
-    {   path: 'worker', component: WorkerComponent, canActivate: [AuthGuard], children: [
+    {
+        path: 'worker', component: WorkerComponent, canActivate: [AuthGuard], children: [
             { path: '', component: TasksOfWorkerComponent, canActivate: [AuthGuard] },
             { path: 'myTasks', component: TasksOfWorkerComponent, canActivate: [AuthGuard] },
             { path: 'conectManager', component: SendEmailComponent, canActivate: [AuthGuard] },

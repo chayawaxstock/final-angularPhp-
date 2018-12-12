@@ -9,7 +9,9 @@ import { ProjectWorker } from '../models/projectWorker';
 
 @Injectable()
 export class WorkerService {
+  ticks:number;
  
+  idWorkingProject:number;
   timerSubject=new Subject();
   constructor(public httpClient:HttpClient) { }
   

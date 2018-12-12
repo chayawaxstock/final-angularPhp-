@@ -19,6 +19,7 @@ export class UserService {
   currentUser: User
   subjectAllProjects = new Subject();
   isFirst:boolean=true;
+
   constructor(public httpClient: HttpClient, private router: Router) {
   }
 
