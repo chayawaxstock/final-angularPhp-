@@ -1,28 +1,24 @@
-<div class="container">
-  <h2>Conect to manager</h2>
-  <div></div>
-  <form [formGroup]="formGroup" (ngSubmit)="sendEmail()" name="formEmail">
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">subject</label>
-      <div class="col-sm-6">
-        <input kendoTextBox type="text" formControlName="subject" class="form-control" placeholder="subject" name="input">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">message</label>
-      <div class="col-sm-10">
-        <textarea kendoTextArea [autoSize]="true" formControlName="body" placeholder="enter message here" name="name"></textarea>
-      </div>
-    </div>
-    <div class="help-block" *ngIf="formGroup.controls['body'].errors&&formGroup.controls['body'].touched">
-      <p *ngFor="let err of obj.values(formGroup.controls['body'].errors)">{{err}}</p>
-    </div>
 
-    <div class="form-group">
-      <div class="col-md-offset-8 col-md-4 margin-left">
-        <button kendoButton type="submit" class="btn-lg" [disabled]="formGroup.invalid">send email</button>
-      </div>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<div class="tab-pane" id="compose">
+    <h2>Conect to manager</h2>
+  <div class="container">
+<div class="content-container clearfix">
+    <form [formGroup]="formGroup" (ngSubmit)="sendEmail()" name="formEmail">
+    <h1 class="content-title">Compose</h1>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input kendoTextBox type="text" formControlName="subject" class="form-control" placeholder="Subject" name="input">
+        </div>
+        <textarea  class="form-control" formControlName="body" placeholder="message" name="name"></textarea>
+        <div class="help-block" *ngIf="formGroup.controls['body'].errors&&formGroup.controls['body'].touched">
+          <p *ngFor="let err of obj.values(formGroup.controls['body'].errors)">{{err}}</p>
+        </div>
+        <div class="btn-send">
+        <button class="btn btn-success btn-lg" type="submit" [disabled]="formGroup.invalid"><span class="glyphicon glyphicon-send"></span> Send</button>
+        </div>
     </div>
-
-  </form>
+    </form>
+</div>
 </div>

@@ -12,7 +12,7 @@
   user-select: none;
   cursor: default;
   padding-bottom: 37px;
-    background-color: red;
+    background-color: #ff6358;
 }
 
 .container{
@@ -21,7 +21,7 @@
 }
 .header{
   font-size: 20px;
-    color: red;
+    color: #ff6358;
 }
 input{
   margin-bottom: 2vh
@@ -44,8 +44,8 @@ input{
   height: 100vh;
   position: fixed;
   z-index: -2;
-  left: 20%;
-  top: 38%;
+  left: 27%;
+  top: 36%;
 
 
 } 
@@ -71,4 +71,7 @@ input{
   font-size: 109px;
   color: white;
   font-family: 'Shadows Into Light', cursive;
+}
+.help-block{
+  color: red;
 }

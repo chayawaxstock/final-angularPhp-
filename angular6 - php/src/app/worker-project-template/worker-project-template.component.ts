@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ProjectWorker } from '../shared/models/projectWorker';
 import { PresentDay } from '../shared/models/pressentDay';
 import { WorkerService } from '../shared/services/worker.service';
@@ -14,14 +14,14 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./worker-project-template.component.css']
 })
 
-export class WorkerProjectTemplateComponent {
+export class WorkerProjectTemplateComponent implements OnInit{
 
   //----------------PROPERTIRS-------------------
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
 
   private signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
     'minWidth': 5,
-    'canvasWidth': 500,
+    'canvasWidth': 300,
     'canvasHeight': 300,
     
   };
@@ -35,6 +35,7 @@ export class WorkerProjectTemplateComponent {
   preccentDay: PresentDay = new PresentDay();
 
   @Output() clickWork: EventEmitter<number> = new EventEmitter<number>();
+  @Output() isStart: EventEmitter<boolean> = new EventEmitter<boolean>();
   isStop: boolean = false;
   //----------------CONSTRUCTOR------------------
   constructor(
@@ -45,6 +46,20 @@ export class WorkerProjectTemplateComponent {
 
 
   //----------------METHODS-------------------
+  ngOnInit() {
+    if(this.workerService.idWorkingProject==this.project.projectId)
+    {
+      this.stopClick=true;
+      this.isClick=true;
+      this.clickWork.emit();
+      // this.workerService.timerSubject.next(this.stopClick);
+    }
+    else if(this.workerService.idWorkingProject!=null)
+    {
+      this.stopClick=false;
+      this.isClick=true;
+    }
+  }
 
   clickUpdateWork(projectId: number) {
 
@@ -54,6 +69,8 @@ export class WorkerProjectTemplateComponent {
 
     if (this.stopClick == true) {
       this.startTimer(projectId);
+      this.workerService.idWorkingProject=this.project.projectId;
+      this.isStart.emit(false);
     }
     else this.stopTimer(projectId);
   }
@@ -85,6 +102,8 @@ export class WorkerProjectTemplateComponent {
   }
 
   stopTimer(projectId: number) {
+    this.preccentDay.userId = this.userService.currentUser.userId;
+    this.preccentDay.projectId = projectId;
     this.isStop = true;
 
   }
@@ -104,7 +123,7 @@ export class WorkerProjectTemplateComponent {
           showConfirmButton: false,
           timer: 1500
         });
-
+        this.workerService.idWorkingProject=null;
         this.userService.subjectAllProjects.next("true");
       },
         err => {

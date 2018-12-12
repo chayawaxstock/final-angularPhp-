@@ -20,11 +20,7 @@ import * as moment from 'moment'
   name: 'formatDate'
 })
 export class EditProjectComponent implements OnInit, PipeTransform {
-  transform(date: any, args?: any): any {
-    let d = new Date(date)
-    return moment(d).format('MM/DD/YYYY')
-
-  }
+ 
   //----------------PROPERTIRS-------------------
   obj: typeof Object = Object;
   formGroup: any;
@@ -82,6 +78,11 @@ export class EditProjectComponent implements OnInit, PipeTransform {
       .subscribe(departments => {
         this.departments = departments.filter(x => x.id > 2);
       });
+  }
+  transform(date: any, args?: any): any {
+    let d = new Date(date)
+    return moment(d).format('MM/DD/YYYY')
+
   }
 
   Ischecked() {
@@ -145,6 +146,7 @@ export class EditProjectComponent implements OnInit, PipeTransform {
          
         
         });
+        this.router.navigate(["/manager/allProjects"])
         swal({
           type: 'success',
           title: 'Success',
