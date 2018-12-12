@@ -15,12 +15,12 @@
             <span id="reauth-email" class="reauth-email"></span>
 
             <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName" name="name">
-            <div class="help-block" *ngIf="formGroup.controls['userName'].errors&&formGroup.controls['userName'].touched">
+            <div class="text-danger" *ngIf="formGroup.controls['userName'].errors&&formGroup.controls['userName'].touched">
                 <p *ngFor="let err of obj.values(formGroup.controls['userName'].errors)">{{err}}</p>
             </div>
 
             <input class="form-control" type="password" placeholder="Enter password" formControlName="password" name="password">
-            <div class="help-block" *ngIf="formGroup.controls['password'].errors&&formGroup.controls['password'].touched">
+            <div class="text-danger" *ngIf="formGroup.controls['password'].errors&&formGroup.controls['password'].touched">
                 <p *ngFor="let err of obj.values(formGroup.controls['password'].errors)">{{err}}</p>
             </div>
 
