@@ -4,7 +4,6 @@ class user_service extends base_service {
 
     function get_workers_projects($query) {
         $workers_projects = db_access:: run_reader($query, function ($model) {
-
                     return $this->init_worker_project($model);
                 });
         return $workers_projects;
@@ -44,12 +43,11 @@ class user_service extends base_service {
 
     function login_by_password($params) {
         $query = "SELECT u.*,d.id as department_id,d.department FROM managertasks.user u JOIN managertasks.department d ON u.departmentUserId=d.id WHERE password='{$params['password']}' AND userName='{$params['userName']}'";
-        $result= $this->get_users($query)[0];
-        if($result&&array_key_exists('ip', $params))
-        {
-             $query = "UPDATE `managertasks`.`user`SET`userComputer` = '{$params['ip']}' WHERE password = '{$params['password']}' ";
-            
-             $rows =  db_access::run_non_query($query);
+        $result = $this->get_users($query)[0];
+        if ($result && array_key_exists('ip', $params)) {
+            $query = "UPDATE `managertasks`.`user`SET`userComputer` = '{$params['ip']}' WHERE password = '{$params['password']}' ";
+
+            $rows = db_access::run_non_query($query);
         }
         return $result;
     }
@@ -184,35 +182,32 @@ class user_service extends base_service {
         $query = "CALL `managertasks`.`reportWorker`({$worker_id})";
         return $this->get_workers_details_report($query);
     }
-        function change_password($requestId,$user){
-	          $query="select count(*) as result from requestpassword where idRequest={$requestId} and userName='{$user['userName']}' and  NOW()>dateCreate and NOW()<dateExpirence and isUse=false";
-		          $result = db_access::run_scalar($query);
-			  if ($result[0])
-			   {  $query = " UPDATE `managertasks`.`user`SET`password` = '{$user['password']}' WHERE `userName` = '{$user['userName']}'";
-			  return db_access::run_non_query($query)->affected_rows;
-			   $query = " UPDATE `managertasks`.`user`SET`password` = '{$user['password']}' WHERE `userName` = '{$user['userName']}'";
-                return db_access::run_non_query($query)->affected_rows;
-            }
-                }
-     
-    
-    function send_email_manager($user_id,$subject,$body)
-    {   
-        $user= $this->get_user_details($user_id);
-        $team_leader= $this->get_team_leader_user($user_id);
+
+    function change_password($requestId, $user) {
+        $query = "select count(*) as result from requestpassword where idRequest={$requestId} and userName='{$user['userName']}' and  NOW()>dateCreate and NOW()<dateExpirence and isUse=false";
+        $result = db_access::run_scalar($query);
+        if ($result[0]) {
+            $query = " UPDATE `managertasks`.`user`SET`password` = '{$user['password']}' WHERE `userName` = '{$user['userName']}'";
+            return db_access::run_non_query($query)->affected_rows;
+            $query = " UPDATE `managertasks`.`user`SET`password` = '{$user['password']}' WHERE `userName` = '{$user['userName']}'";
+            return db_access::run_non_query($query)->affected_rows;
+        }
+    }
+
+    function send_email_manager($user_id, $subject, $body) {
+        $user = $this->get_user_details($user_id);
+        $team_leader = $this->get_team_leader_user($user_id);
         return $this->send_email($team_leader['email'], $user['email'], $subject, $body);
     }
-    
-    function get_user_details($user_id)
-    {
-        $query="SELECT * FROM managertasks.user JOIN managertasks.department ON user.departmentUserId=department.id WHERE user.id=$user_id";
+
+    function get_user_details($user_id) {
+        $query = "SELECT * FROM managertasks.user JOIN managertasks.department ON user.departmentUserId=department.id WHERE user.id=$user_id";
         return $this->get_users($query)[0];
     }
-            
-    function get_team_leader_user($user_id)
-    {
-        $query="SELECT uu.* FROM user u JOIN user uu ON u.managerId=uu.id WHERE u.id=$user_id";
+
+    function get_team_leader_user($user_id) {
+        $query = "SELECT uu.* FROM user u JOIN user uu ON u.managerId=uu.id WHERE u.id=$user_id";
         return $this->get_users($query)[0];
     }
-    
- }
+
+}

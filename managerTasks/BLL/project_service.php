@@ -6,7 +6,6 @@ class project_service extends base_service {
         $projects = db_access:: run_reader($query, function ($model) {
                     return $this->init_project($model);
                 });
-
         return $projects;
     }
 
@@ -37,18 +36,14 @@ class project_service extends base_service {
 
     function add_project($project) {
         $format = 'Y-m-d';
-
         $dateBegin = date('Y-m-d', strtotime($project['dateBegin']));
         $dateEnd = date('Y-m-d', strtotime($project['dateEnd']));
-
         $IsFinish = ($project['isFinish'] ? 1 : 0);
         $numHour = $project['numHourForProject'];
         $name = $project['projectName'];
         $customerName = $project['customerName'];
         $managerId = $project['idManager'];
-//        start transaction;
         $query = " INSERT INTO `managertasks`.`project`(`numHour`,`name`,`dateBegin`,`dateEnd`,`isFinish`,`customerName`,`managerId`) VALUES('$numHour','$name','$dateBegin','$dateEnd',$IsFinish,'$customerName',$managerId) ";
-
         $result = db_access::run_non_query($query);
         if ($result->affected_rows > 0) {
             $insert_id = $result->insert_id;
@@ -63,12 +58,10 @@ class project_service extends base_service {
     }
 
     function delete_project($projectId) {
-
         $query = "DELETE FROM `managertasks`.`project`WHERE projectId =$projectId";
         return db_access::run_non_query($query);
     }
 
-    //not good
     function create_report_project() {
         $query = "CALL `managertasks`.`report`('reportProject');";
         $report_projects = $this->get_project_report($query);
@@ -76,7 +69,6 @@ class project_service extends base_service {
             $item['items'] = $this->get_departments_workers_project_report($item['id']);
             $new_report_projects[] = $item;
         }
-
         return $new_report_projects;
     }
 
@@ -87,7 +79,6 @@ class project_service extends base_service {
             $item['hoursForDepartment'] = $this->get_hours_departments_project($item['projectId']);
             $new_projects_team[] = $item;
         }
-
         return $new_projects_team;
     }
 
@@ -121,13 +112,11 @@ class project_service extends base_service {
     }
 
     function update_project($project) {
-
         $dateBegin = date('Y-m-d', strtotime($project['dateBegin']));
         $dateEnd = date('Y-m-d', strtotime($project['dateEnd']));
         $query = "UPDATE managertasks.project SET numHour='{$project['numHourForProject']}',name='{$project['projectName']}',dateBegin='{$dateBegin}' ,dateEnd='{$dateEnd}' ,isFinish={$project['finish']},customerName='{$project['customerName']}'  WHERE projectId={$project['projectId']}";
         $result = db_access::run_non_query($query)->affected_rows;
         if ($result > 0) {
-
             foreach ($project['hoursForDepartment'] as &$value) {
                 $departmentId = $value['departmentId'];
                 $sumHours = $value['sumHours'];
@@ -136,11 +125,6 @@ class project_service extends base_service {
             }
             return $result;
         }
-//        if ($result > 0) {
-//            return http_response_code(204);
-//        } else {
-//            return http_response_code(422);
-//        }
     }
 
 }

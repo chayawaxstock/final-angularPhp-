@@ -3,7 +3,6 @@
 class validation {
 
     function validation_text($text, $pattern, $min_length, $max_length, $name) {
-
         $msg_name = '';
         if (empty($text)) {
             $msg_name = "" . $name . "is required";
@@ -18,7 +17,7 @@ class validation {
         if ($len < $min_length) {
             $msg_name = "$name is too short, minimum is $min_length characters ($max_length max)";
         } elseif ($len > $max_length) {
-           $msg_name = "$name is too long, maximum is $max_length characters ($min_length min).";
+            $msg_name = "$name is too long, maximum is $max_length characters ($min_length min).";
         }
         return $msg_name;
     }
@@ -36,7 +35,6 @@ class validation {
     }
 
     function validation_int($number, $name, $min, $max) {
-
         $msg_name = '';
         if (empty($number)) {
             $msg_name = $name . "is required";

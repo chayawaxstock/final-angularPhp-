@@ -28,7 +28,6 @@ class base_service {
     }
 
     function init_project($project) {
-//      print_r($project);
         $new_project = array();
         $new_project['projectId'] = $project['projectId'];
         $new_project['projectName'] = $project['name'];
@@ -42,7 +41,6 @@ class base_service {
             $new_project['manager'] = array();
             $new_project['manager']['userName'] = $project['userName'];
         }
-
         return $new_project;
     }
 
@@ -70,12 +68,10 @@ class base_service {
     }
 
     function init_department_hours($department_hours) {
-
         $new_department_hours = array();
         $new_department_hours['projectId'] = $department_hours['projectId'];
         $new_department_hours['departmentId'] = $department_hours['departmentId'];
         $new_department_hours['sumHours'] = $department_hours['sumHours'];
-
         $new_department_hours['departmentUser'] = array();
         $new_department_hours['departmentUser']['id'] = $department_hours['id'];
         $new_department_hours['departmentUser']['department'] = $department_hours['department'];
@@ -83,7 +79,6 @@ class base_service {
     }
 
     function init_report($project_report) {
-
         $new_report = array();
         $new_report['id'] = $project_report['projectId'];
         $new_report['name'] = $project_report['name'];

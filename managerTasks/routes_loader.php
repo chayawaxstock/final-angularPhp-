@@ -73,18 +73,13 @@ class routes_loader {
     function get_projects_methods() {
         return array(
             'getAllProjects' => function ($params) {
-
                 return $this->project_controller->get_all_projects();
             },
             'addProject' => function ($params) {
-
                 return $this->project_controller->add_project($params);
             },
             'deleteProject' => function ($params) {
                 return $this->project_controller->delete_project($params['projectId']);
-            },
-            'getProjectById' => function ($params) {
-                // return $this->project_controller->get_project_by_id($params['projectId']);
             },
             'getProjectsByTeamLeaderId' => function ($params) {
                 return $this->project_controller->get_projects_by_teamLeader($params['teamLeaderId']);
@@ -120,7 +115,6 @@ class routes_loader {
                 return $this->project_worker_controller->get_workers_in_project($params['projectId']);
             },
             'getUsersTeamLeaderProject' => function ($params) {
-
                 return $this->project_worker_controller->get_users_teamLeader_project($params['teamleaderId'], $params['projectId']);
             },
             'getSumStayByProjectAndDepartment' => function ($params) {
@@ -136,11 +130,9 @@ class routes_loader {
                 return $this->project_worker_controller->get_sum_hours_done_users($params['projectId'], $params['teamLeaderId']);
             },
             'addWorkersToProject' => function ($params) {
-
                 return $this->project_worker_controller->add_workers_to_project($params['projectId'], $params['workers']);
             },
             'updateProjectHoursForUser' => function ($params) {
-
                 return $this->project_worker_controller->update_project_hours_for_user($params);
             },
         );
@@ -149,7 +141,6 @@ class routes_loader {
     function get_presence_day_methods() {
         return array(
             'updatePresenceDayWorker' => function ($params) {
-
                 return $this->presence_hours_controller->update_presenceday_worker($params);
             }
             ,
