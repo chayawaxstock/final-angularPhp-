@@ -11,9 +11,9 @@ export class ExcelService {
   constructor() { }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    console.log('worksheet',worksheet);
+    console.log('worksheet', worksheet);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
@@ -25,7 +25,4 @@ export class ExcelService {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-
-  
-
 }

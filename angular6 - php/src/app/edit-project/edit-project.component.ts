@@ -10,17 +10,20 @@ import { HourForDepartment } from '../shared/models/hourForDepartment';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core'
-import * as moment from 'moment'
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-edit-project',
   templateUrl: './edit-project.component.html',
   styleUrls: ['./edit-project.component.css']
 })
+
 @Pipe({
   name: 'formatDate'
 })
+
 export class EditProjectComponent implements OnInit, PipeTransform {
- 
+
   //----------------PROPERTIRS-------------------
   obj: typeof Object = Object;
   formGroup: any;
@@ -79,10 +82,10 @@ export class EditProjectComponent implements OnInit, PipeTransform {
         this.departments = departments.filter(x => x.id > 2);
       });
   }
+
   transform(date: any, args?: any): any {
     let d = new Date(date)
     return moment(d).format('MM/DD/YYYY')
-
   }
 
   Ischecked() {
@@ -95,7 +98,6 @@ export class EditProjectComponent implements OnInit, PipeTransform {
       return;
     }
     else {
-      debugger;
       let department = this.project.hoursForDepartment;
       let projectId = this.project.projectId;
       this.project = this.formGroup.value;
@@ -103,18 +105,18 @@ export class EditProjectComponent implements OnInit, PipeTransform {
       this.project.projectId = projectId;
       this.project.isFinish = this.isChecked;
       this.project.idManager = this.managerService.project.idManager;
-      this.project.dateBegin=this.transform(this.project.dateBegin);
-      this.project.dateEnd=this.transform(this.project.dateEnd);
+      this.project.dateBegin = this.transform(this.project.dateBegin);
+      this.project.dateEnd = this.transform(this.project.dateEnd);
       this.managerService.editProjct(this.project)
         .subscribe(res => {
           this.managerService.subjectProject.next("true");
-          if(res!=-1)
-          swal({
-            type: 'success',
-            title: 'Success',
-            showConfirmButton: false,
-            timer: 1500
-          })
+          if (res != -1)
+            swal({
+              type: 'success',
+              title: 'Success',
+              showConfirmButton: false,
+              timer: 1500
+            })
           this.router.navigate(["/manager/allProjects"])
         }, err =>
             this.managerService.getErrorMessage());
@@ -128,31 +130,26 @@ export class EditProjectComponent implements OnInit, PipeTransform {
       return;
     }
     else {
-      debugger;
       this.projectAdd = this.project;
       this.project = this.formGroup.value;
-      this.project.dateBegin=this.transform(this.project.dateBegin);
-      this.project.dateEnd=this.transform(this.project.dateEnd);
+      this.project.dateBegin = this.transform(this.project.dateBegin);
+      this.project.dateEnd = this.transform(this.project.dateEnd);
       this.project.hoursForDepartment = [];
-      let numHour: HourForDepartment;
-
-
-
       this.project.hoursForDepartment = this.projectAdd.hoursForDepartment;
 
       this.managerService.addProject(this.project)
         .subscribe(res => {
           this.managerService.subjectProject.next("true");
-         
-        
         });
-        this.router.navigate(["/manager/allProjects"])
-        swal({
-          type: 'success',
-          title: 'Success',
-          showConfirmButton: false,
-          timer: 1500
-        });
+
+      this.router.navigate(["/manager/allProjects"])
+      
+      swal({
+        type: 'success',
+        title: 'Success',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   }
 

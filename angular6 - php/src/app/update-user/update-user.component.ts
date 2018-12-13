@@ -13,7 +13,7 @@ import swal from 'sweetalert2'
   templateUrl: './update-user.component.html',
   styleUrls: ['./update-user.component.css']
 })
-export class UpdateUserComponent  {
+export class UpdateUserComponent {
 
   //----------------PROPERTIRS-------------------
   departments: DepartmentUser[] = [];
@@ -28,16 +28,16 @@ export class UpdateUserComponent  {
   constructor(public userService: UserService, public managerService: ManagerService, public router: Router) {
     this.user = this.managerService.userToEdit;
     userService.getAllDepartments()
-     .subscribe(departments => {
-      this.departments = departments;
-    });
+      .subscribe(departments => {
+        this.departments = departments;
+      });
 
     this.managerService.getUsersByDepartment("teamLeader")
-    .subscribe(res => {
-      this.teamLeaders = res;
-      this.managerName = this.teamLeaders.find(x => x.userId == this.user.managerId).userName;
-    }, 
-    () => { });
+      .subscribe(res => {
+        this.teamLeaders = res;
+        this.managerName = this.teamLeaders.find(x => x.userId == this.user.managerId).userName;
+      },
+        () => { });
 
     let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     let formGroupConfig = {
@@ -64,22 +64,17 @@ export class UpdateUserComponent  {
     this.user.managerId = managerId;
 
     this.managerService.updateUser(this.user)
-    .subscribe(() => {
-      swal({
-        type: 'success',
-        title: 'Success',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.router.navigate(["/manager/allUsers"]);
+      .subscribe(() => {
+        swal({
+          type: 'success',
+          title: 'Success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(["/manager/allUsers"]);
 
-    }, err => {
-      swal({
-        type: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-
+      }, () => {
+       this.managerService.getErrorMessage();
       })
-    })
   }
 }

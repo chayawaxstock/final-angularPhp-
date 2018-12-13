@@ -10,11 +10,15 @@ import { UserService } from '../shared/services/user.service';
 })
 export class ProjectTeamLeaderComponent implements OnInit {
 
+  //----------------PROPERTIRS-------------------
   projects: Project[] = [];
+
+  //----------------CONSTRUCTOR------------------
   constructor(
     public teamLeaderService: TeamleaderService,
     public userService: UserService) { }
 
+  //----------------METHODS-------------------
   ngOnInit() {
     this.teamLeaderService.getProjectTeamLeader(this.userService.currentUser.userId)
       .subscribe(res => {

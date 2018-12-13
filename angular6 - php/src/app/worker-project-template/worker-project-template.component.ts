@@ -8,13 +8,14 @@ import swal from 'sweetalert2';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { ViewChild } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { ManagerService } from '../shared/services/manager.service';
 @Component({
   selector: 'app-worker-project-template',
   templateUrl: './worker-project-template.component.html',
   styleUrls: ['./worker-project-template.component.css']
 })
 
-export class WorkerProjectTemplateComponent implements OnInit{
+export class WorkerProjectTemplateComponent implements OnInit {
 
   //----------------PROPERTIRS-------------------
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -23,8 +24,8 @@ export class WorkerProjectTemplateComponent implements OnInit{
     'minWidth': 5,
     'canvasWidth': 300,
     'canvasHeight': 300,
-    
   };
+
   @Input()
   project: ProjectWorker;
 
@@ -37,27 +38,27 @@ export class WorkerProjectTemplateComponent implements OnInit{
   @Output() clickWork: EventEmitter<number> = new EventEmitter<number>();
   @Output() isStart: EventEmitter<boolean> = new EventEmitter<boolean>();
   isStop: boolean = false;
+
   //----------------CONSTRUCTOR------------------
   constructor(
     public workerService: WorkerService,
     public userService: UserService,
+    public managerService: ManagerService,
     public router: Router,
     public intl: IntlService) { }
 
 
   //----------------METHODS-------------------
   ngOnInit() {
-    if(this.workerService.idWorkingProject==this.project.projectId)
-    {
-      this.stopClick=true;
-      this.isClick=true;
+    if (this.workerService.idWorkingProject == this.project.projectId) {
+      this.stopClick = true;
+      this.isClick = true;
       this.clickWork.emit();
       // this.workerService.timerSubject.next(this.stopClick);
     }
-    else if(this.workerService.idWorkingProject!=null)
-    {
-      this.stopClick=false;
-      this.isClick=true;
+    else if (this.workerService.idWorkingProject != null) {
+      this.stopClick = false;
+      this.isClick = true;
     }
   }
 
@@ -69,7 +70,7 @@ export class WorkerProjectTemplateComponent implements OnInit{
 
     if (this.stopClick == true) {
       this.startTimer(projectId);
-      this.workerService.idWorkingProject=this.project.projectId;
+      this.workerService.idWorkingProject = this.project.projectId;
       this.isStart.emit(false);
     }
     else this.stopTimer(projectId);
@@ -80,7 +81,6 @@ export class WorkerProjectTemplateComponent implements OnInit{
     this.preccentDay.timeEnd = new Date();
     this.preccentDay.userId = this.userService.currentUser.userId;
     this.preccentDay.projectId = projectId;
-    debugger;
     this.workerService.addPresentDay(this.preccentDay)
       .subscribe(() => {
         swal({
@@ -91,13 +91,7 @@ export class WorkerProjectTemplateComponent implements OnInit{
         })
       },
         err => {
-          {
-            swal({
-              type: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-            })
-          }
+          this.managerService.getErrorMessage();
         })
   }
 
@@ -112,9 +106,9 @@ export class WorkerProjectTemplateComponent implements OnInit{
   clear() {
     this.signaturePad.clear();
   }
+
   ok() {
     this.preccentDay.timeEnd = new Date(this.intl.formatDate(new Date(), "d"));
-
     this.workerService.updateDayPressent(this.preccentDay)
       .subscribe(() => {
         swal({
@@ -123,17 +117,11 @@ export class WorkerProjectTemplateComponent implements OnInit{
           showConfirmButton: false,
           timer: 1500
         });
-        this.workerService.idWorkingProject=null;
+        this.workerService.idWorkingProject = null;
         this.userService.subjectAllProjects.next("true");
       },
         err => {
-          {
-            swal({
-              type: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-            })
-          }
+          this.managerService.getErrorMessage();
         })
   }
 }

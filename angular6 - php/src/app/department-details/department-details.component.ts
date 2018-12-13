@@ -6,10 +6,10 @@ import { DepartmentUser } from '../shared/models/departmentUser';
   templateUrl: './department-details.component.html',
   styleUrls: ['./department-details.component.css']
 })
-export class DepartmentDetailsComponent  {
+export class DepartmentDetailsComponent {
 
   constructor() { }
 
-  @Input() department:DepartmentUser[];
+  @Input() department: DepartmentUser[];
 
 }

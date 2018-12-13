@@ -23,8 +23,6 @@ import { WorkerComponent } from './worker/worker.component';
 import { TimerComponent } from './timer/timer.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { GraphStatusHourComponent } from './graph-status-hour/graph-status-hour.component';
-
-import { WorkerToTeamLeaderComponent } from './worker-to-team-leader/worker-to-team-leader.component';
 import { WorkerProjectTemplateComponent } from './worker-project-template/worker-project-template.component';
 import { GraphStatusHoursProjectsComponent } from './graph-status-hours-projects/graph-status-hours-projects.component';
 import { TasksOfWorkerComponent } from './tasks-of-worker/tasks-of-worker.component';
@@ -89,7 +87,6 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     TimerComponent,
     SendEmailComponent,
     GraphStatusHourComponent,
-    WorkerToTeamLeaderComponent,
     TasksOfWorkerComponent,
     WorkerProjectTemplateComponent,
     ProjectDetailsComponent,
@@ -131,7 +128,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     DateInputsModule,
     SignaturePadModule,
     NgxCaptchaModule
-    
+
 
 
   ],

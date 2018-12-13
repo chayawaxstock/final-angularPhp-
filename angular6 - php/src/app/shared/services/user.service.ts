@@ -18,7 +18,7 @@ export class UserService {
   subject = new Subject();
   currentUser: User
   subjectAllProjects = new Subject();
-  isFirst:boolean=true;
+  isFirst: boolean = true;
 
   constructor(public httpClient: HttpClient, private router: Router) {
   }
@@ -33,32 +33,29 @@ export class UserService {
 
   signInUser(user: LoginUser): Observable<User> {
     console.log(user);
-     return this.httpClient.post<User>(Global.baseURLPHP + "/user/loginByPassword",user);
+    return this.httpClient.post<User>(Global.baseURLPHP + "/user/loginByPassword", user);
   }
 
   loginByUserComputer(ip: string): Observable<User> {
     let formData: FormData = new FormData();
     formData.append('ip', ip);
-    return this.httpClient.post<User>(Global.baseURLPHP + "/user/loginByIp", {"ip":ip})
+    return this.httpClient.post<User>(Global.baseURLPHP + "/user/loginByIp", { "ip": ip })
   }
 
   forgetPassword(userName: string): Observable<any> {
-    return this.httpClient.get(Global.baseURLPHP + "/user/forgetPassword?userName="+userName)
+    return this.httpClient.get(Global.baseURLPHP + "/user/forgetPassword?userName=" + userName)
   }
 
-  changePassord(user:LoginUser,requestId:number): Observable<any>
-  {
-    return this.httpClient.put(Global.baseURLPHP+"/user/changePassword?requestId="+requestId,{"user":user});
+  changePassord(user: LoginUser, requestId: number): Observable<any> {
+    return this.httpClient.put(Global.baseURLPHP + "/user/changePassword?requestId=" + requestId, { "user": user });
   }
 
-  getAllDepartments(): Observable<DepartmentUser[]> 
-  {  
+  getAllDepartments(): Observable<DepartmentUser[]> {
     return this.httpClient.get<DepartmentUser[]>(Global.baseURLPHP + "/department/getAllDepartments");
   }
 
   getAllUsers(): Observable<User[]> {
-    debugger;
-    return this.httpClient.get<User[]>(Global.baseURLPHP+"/user/getAllUsers");
+    return this.httpClient.get<User[]>(Global.baseURLPHP + "/user/getAllUsers");
   }
 
   getIp(): Observable<any> {
@@ -68,6 +65,5 @@ export class UserService {
   getHoursForProjectsByUser(userId: number): Observable<any[]> {
     return this.httpClient.get<any[]>(Global.baseURLPHP + "/user/getHoursForUserProjects?userId=" + userId);
   }
-
 
 }

@@ -21,8 +21,7 @@ export class EditService extends BehaviorSubject<any[]> {
         super([]);
     }
 
-     read() {
-
+    read() {
         if (this.data.length) {
             return super.next(this.data);
         }
@@ -38,15 +37,14 @@ export class EditService extends BehaviorSubject<any[]> {
             });
     }
 
-     save(data: any, isNew?: boolean) {
-
+    save(data: any, isNew?: boolean) {
         const action = isNew ? CREATE_ACTION : UPDATE_ACTION;
         this.reset();
         this.fetch(action, data)
             .subscribe(() => this.read(), () => this.read());
     }
 
-     remove(data: any) {
+    remove(data: any) {
         this.reset();
         this.fetch(REMOVE_ACTION, data)
             .subscribe(() => this.read(), () => this.read());
@@ -56,16 +54,13 @@ export class EditService extends BehaviorSubject<any[]> {
         this.data = [];
     }
 
-     fetch(action: string = '', data?: any): Observable<any[]> {
-         
+    fetch(action: string = '', data?: any): Observable<any[]> {
         if (Global.idProjectToGetWorker == 0)
-            return this.http.get(Global.baseURLPHP+"/user/getAllUsers")
+            return this.http.get(Global.baseURLPHP + "/user/getAllUsers")
                 .pipe(map(res => <any[]>res));
         return this.http.get<User[]>(Global.baseURLPHP + "/projectworker/getWorkersInProject?projectId=" + Global.idProjectToGetWorker)
             .pipe(map(res => <any[]>res));
-
     }
-
 
     private serializeModels(data?: any): string {
         return data ? `&models=${JSON.stringify([data])}` : '';

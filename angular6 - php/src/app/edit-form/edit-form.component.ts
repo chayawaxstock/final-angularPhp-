@@ -18,6 +18,7 @@ import sha256 from 'async-sha256';
     ],
     templateUrl: './edit-form.component.html'
 })
+
 export class GridEditFormComponent {
 
     //----------------PROPERTIRS-------------------

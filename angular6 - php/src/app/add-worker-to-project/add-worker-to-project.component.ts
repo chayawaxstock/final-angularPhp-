@@ -13,56 +13,56 @@ import { ProjectWorker } from '../shared/models/projectWorker';
 })
 export class AddWorkerToProjectComponent implements OnInit {
 
-  project:Project;
-  workesNotinProject:User[]=[];
-  addWorker:User[]=[];
-  workersAddToProject:ProjectWorker[]=[];
+  //----------------PROPERTIRS-------------------
+  project: Project;
+  workesNotinProject: User[] = [];
+  addWorker: User[] = [];
+  workersAddToProject: ProjectWorker[] = [];
 
+  //----------------CONSTRUCTOR------------------
   constructor(
-    public managerService:ManagerService,
-    public router:Router ) { }
+    public managerService: ManagerService,
+    public router: Router) { }
 
-  ngOnInit(){
-      this.project=this.managerService.workerToProject; 
 
-       this.managerService.getWorkerNotInProject(this.project.projectId)
-       .subscribe(res=>{
-          this.workesNotinProject=res;
-          res.forEach(x=>
-            {
-              let worker=new ProjectWorker();
-              // worker.projectId=this.project.projectId,
-              worker.userId=x.userId; 
-              this.workersAddToProject.push(worker)
-            });
-        })    
+  //----------------METHODS-------------------
+  ngOnInit() {
+    this.project = this.managerService.workerToProject;
+    this.managerService.getWorkerNotInProject(this.project.projectId)
+      .subscribe(res => {
+        this.workesNotinProject = res;
+        res.forEach(x => {
+          let worker = new ProjectWorker();
+          worker.userId = x.userId;
+          this.workersAddToProject.push(worker)
+        });
+      })
   }
 
   //update hours for worker in project
-  numHours(workerProject:ProjectWorker)
-  {
-    this.workersAddToProject.filter(x=>x.userId==workerProject.userId)[0].hoursForProject=workerProject.hoursForProject;
+  numHours(workerProject: ProjectWorker) {
+    this.workersAddToProject.filter(x => x.userId == workerProject.userId)[0].hoursForProject = workerProject.hoursForProject;
   }
 
   //save add worker to project
-  saveChange()
-  {
-    this.workersAddToProject=this.workersAddToProject.filter(x=>x.hoursForProject>0);
-    this.managerService.addWorkersToProject(this.project.projectId,this.workersAddToProject)
-    .subscribe(res=>{
-      swal({
-        type: 'success',
-        title: 'Success',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      //return to allProjects component
-     this.router.navigate(["/manager/allProjects"]);
-    },err=>{
-      {
-      this.managerService.getErrorMessage();
-      }
-    });
+  saveChange() {
+    this.workersAddToProject = this.workersAddToProject.filter(x => x.hoursForProject > 0);
+    this.managerService.addWorkersToProject(this.project.projectId, this.workersAddToProject)
+      .subscribe(()=> {
+        swal({
+          type: 'success',
+          title: 'Success',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        //return to allProjects component
+        this.router.navigate(["/manager/allProjects"]);
+      },
+       () => {
+        {
+          this.managerService.getErrorMessage();
+        }
+      });
   }
 
 }

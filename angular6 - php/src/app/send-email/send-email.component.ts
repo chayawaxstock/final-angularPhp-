@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { createValidatorText } from '../shared/validators/user.validation';
+import { ManagerService } from '../shared/services/manager.service';
 
 @Component({
   selector: 'app-send-email',
@@ -13,49 +14,43 @@ import { createValidatorText } from '../shared/validators/user.validation';
 })
 export class SendEmailComponent implements OnInit {
 
-  
-   //----------------PROPERTIRS-------------------
-   formGroup: FormGroup;
-   obj: typeof Object = Object;
+
+  //----------------PROPERTIRS-------------------
+  formGroup: FormGroup;
+  obj: typeof Object = Object;
 
   //----------------CONSTRUCTOR------------------
   constructor(
-    public workerService:WorkerService,
-    public userService:UserService,
-    public router:Router) {}
+    public workerService: WorkerService,
+    public userService: UserService,
+    public managerService:ManagerService,
+    public router: Router) { }
 
 
   //----------------METHODS-------------------
   ngOnInit() {
     let formGroupConfig = {
       subject: new FormControl(""),
-      body: new FormControl("",createValidatorText("body", 2, 15000)),
+      body: new FormControl("", createValidatorText("body", 2, 15000)),
 
     };
     this.formGroup = new FormGroup(formGroupConfig);
   }
 
-  sendEmail()
-  {
-    debugger;
-    this.workerService.sendEmail(this.formGroup.value,this.userService.currentUser.userId)
-    .subscribe(
-      ()=>{
-        swal({
-          type: 'success',
-          title: 'The message has been sent',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(["/worker"]);
-
-      },err=>{
-        swal({
-          type: 'error',
-          title: 'Oops...',
-          text: 'send email failed',
-        })
-      }
-    );
+  sendEmail() {
+    this.workerService.sendEmail(this.formGroup.value, this.userService.currentUser.userId)
+      .subscribe(
+        () => {
+          swal({
+            type: 'success',
+            title: 'The message has been sent',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.router.navigate(["/worker"]);
+        }, () => {
+         this.managerService.getErrorMessage();
+        }
+      );
   }
 }

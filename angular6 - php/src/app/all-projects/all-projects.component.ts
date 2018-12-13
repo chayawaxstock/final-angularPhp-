@@ -29,6 +29,7 @@ export class AllProjectsComponent implements OnInit {
   //----------------METHODS-------------------
   ngOnInit() {
     this.getAllProjects();
+
     //get all project after add ,delete 
     this.managerService.subjectProject.subscribe(v => {
       this.getAllProjects();
@@ -38,7 +39,6 @@ export class AllProjectsComponent implements OnInit {
   getAllProjects() {
     this.managerService.getAllProjects()
       .subscribe(res => {
-        debugger;
         this.projects = res;
       });
   }
@@ -96,6 +96,7 @@ export class AllProjectsComponent implements OnInit {
           hour.departmentUser = departmentUser;
           this.project.hoursForDepartment.push(hour);
         });
+
         this.project.dateBegin = new Date();
         this.project.dateEnd = new Date();
         this.managerService.project = this.project;

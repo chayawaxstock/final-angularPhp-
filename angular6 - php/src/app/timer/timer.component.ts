@@ -13,8 +13,8 @@ export class TimerComponent implements OnInit {
     ticks = 0;
     @Input() isPlay: boolean;
 
-    minutesDisplay: number ;
-    hoursDisplay: number ;
+    minutesDisplay: number;
+    hoursDisplay: number;
     secondsDisplay: number;
     timer: any;
 
@@ -22,27 +22,26 @@ export class TimerComponent implements OnInit {
     constructor(
         public workerService: WorkerService,
         public userService: UserService) {
-        
-            this.secondsDisplay=0;
-            this.minutesDisplay=0;
-            this.hoursDisplay=0;
-         }
+
+        this.secondsDisplay = 0;
+        this.minutesDisplay = 0;
+        this.hoursDisplay = 0;
+    }
 
 
     //----------------METHODS-------------------
     ngOnInit() {
-        if(this.workerService.idWorkingProject!=null)
-       {
-        this.ticks=this.workerService.ticks;
-        this.startTimer();
-       }
-        else{
-        this.workerService.timerSubject
-            .subscribe((status) => {
-                if (status == false)
-                    this.startTimer();
-                else this.stopTimer();
-            })
+        if (this.workerService.idWorkingProject != null) {
+            this.ticks = this.workerService.ticks;
+            this.startTimer();
+        }
+        else {
+            this.workerService.timerSubject
+                .subscribe((status) => {
+                    if (status == false)
+                        this.startTimer();
+                    else this.stopTimer();
+                })
         }
 
     }
@@ -57,7 +56,7 @@ export class TimerComponent implements OnInit {
         this.secondsDisplay = this.getSeconds(this.ticks);
         this.minutesDisplay = this.getMinutes(this.ticks);
         this.hoursDisplay = this.getHours(this.ticks);
-        this.workerService.ticks= this.ticks;
+        this.workerService.ticks = this.ticks;
     }
 
     stopTimer() {

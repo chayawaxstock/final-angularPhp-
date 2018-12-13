@@ -59,15 +59,10 @@ export class ProjectWorkerDetailsTemplateComponent {
             this.updateHours();
           }
           else {
-            swal({
-              type: 'error',
-              title: 'Oops...',
-              text: 'num of hour stay to this department less than num hours to edit!'
-            })
+            this.managerService.getErrorMessage();
           }
         }
       })
-
   }
 
   checkNumStay(numHour: number): boolean {

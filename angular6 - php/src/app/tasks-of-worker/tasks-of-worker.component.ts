@@ -37,7 +37,7 @@ export class TasksOfWorkerComponent implements OnInit {
     this.workerService.getTasksOfWorker(this.userService.currentUser.userId)
       .subscribe(res => {
         this.projects = res;
-      },()=>{ });;
+      }, () => { });;
   }
 
   clickWork() {

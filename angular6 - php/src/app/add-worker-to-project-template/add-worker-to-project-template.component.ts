@@ -9,6 +9,7 @@ import { ProjectWorker } from '../shared/models/projectWorker';
 })
 export class AddWorkerToProjectTemplateComponent implements OnInit {
 
+  //----------------PROPERTIRS-------------------
   @Input() workerToProject: User;
 
   isChecked: boolean = false;
@@ -17,10 +18,13 @@ export class AddWorkerToProjectTemplateComponent implements OnInit {
 
   @Output() numHours: EventEmitter<ProjectWorker> = new EventEmitter<ProjectWorker>();
 
+
+   //----------------CONSTRUCTOR------------------
   constructor() { 
     this.workerProject=new ProjectWorker();
   }
 
+   //----------------METHODS-------------------
   ngOnInit() {
     this.workerProject.userId=this.workerToProject.userId;
   }

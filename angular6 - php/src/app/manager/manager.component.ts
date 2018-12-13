@@ -13,8 +13,6 @@ import { Global } from '../shared/services/global';
 })
 export class ManagerComponent  {
 
-
-
      //----------------PROPERTIRS-------------------
   projects: Project[] = [];
   @Input() loginInfo: User;

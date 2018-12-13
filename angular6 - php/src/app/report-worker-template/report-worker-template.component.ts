@@ -6,10 +6,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: './report-worker-template.component.html',
   styleUrls: ['./report-worker-template.component.css']
 })
-export class ReportWorkerTemplateComponent   {
+export class ReportWorkerTemplateComponent {
 
-  @Input() pressents:any[];
+  @Input() pressents: any[];
   constructor() { }
-
 
 }

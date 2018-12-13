@@ -33,11 +33,10 @@ export class ReportWorkrtsComponent {
         public managerService: ManagerService) {
 
         this.managerService.createReport(2)
-        .subscribe(res => {
-            debugger;
-            this.reportWorker = res;
-            this.gridData = this.reportWorker;
-        });
+            .subscribe(res => {
+                this.reportWorker = res;
+                this.gridData = this.reportWorker;
+            });
     }
 
     //----------------METHODS-------------------
@@ -46,7 +45,7 @@ export class ReportWorkrtsComponent {
         this.gridData.forEach((element: ReportWorker) => {
             workersReport.push(element);
             element.items.forEach((department: ReportWorker) => {
-                workersReport.push(department);  
+                workersReport.push(department);
             })
         });
 
@@ -78,7 +77,6 @@ export class ReportWorkrtsComponent {
     }
 
     public allData(): ExcelExportData {
-        debugger;
         const result: ExcelExportData = {
             data: process(this.reportWorker, { group: this.group, sort: [{ field: 'ProductID', dir: 'asc' }] }).data,
             group: this.group

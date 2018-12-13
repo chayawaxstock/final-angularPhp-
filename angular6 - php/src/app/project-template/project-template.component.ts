@@ -44,7 +44,6 @@ export class ProjectTemplateComponent {
     this.router.navigate(["/manager/showWorkers"]);
   }
 
-
   delete() {
     this.deleteProject.emit(this.project.projectId);
   }

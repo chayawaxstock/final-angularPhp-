@@ -7,6 +7,7 @@ import { LoginUser } from '../shared/models/loginUser';
 import sha256 from 'async-sha256';
 import swal from 'sweetalert2';
 import { User } from '../shared/models/user';
+import { ManagerService } from '../shared/services/manager.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { User } from '../shared/models/user';
 export class SignInComponent {
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
-}
+  }
   //-----------------properties-------------------
   formGroup: FormGroup;
   obj: typeof Object = Object;
@@ -27,45 +28,42 @@ export class SignInComponent {
   //-----------------constructor-------------------
   constructor(
     private userService: UserService,
+    private managerService: ManagerService,
     private router: Router) {
 
-      //check if do logout or enter firstTime
-    if(this.userService.isFirst)
-    {
+    //check if do logout or enter firstTime
+    if (this.userService.isFirst) {
       this.signInWithIp();
-      this.userService.isFirst=false;
+      this.userService.isFirst = false;
     }
 
     let formGroupConfig = {
       userName: new FormControl("", createValidatorText("userName", 2, 15)),
       password: new FormControl("", createValidatorText("password", 8, 20)),
       remember: new FormControl(false),
-
-
     };
     this.formGroup = new FormGroup(formGroupConfig);
   }
 
 
   //----------------METHODS-------------------
-  signInWithIp()
-  {
+  signInWithIp() {
     this.userService.getIp()
       .subscribe(res => {
-         this.ip = res.ip;
-         this.userService.loginByUserComputer(this.ip)
-           .subscribe(x => {
-        //save user in global prop
-           this.userService.currentUser = x;
-        //check promissing
-        this.userService.checkDepartment();
-      }, () => {
-        //faild login
-        this.router.navigate(['/home']);
+        this.ip = res.ip;
+        this.userService.loginByUserComputer(this.ip)
+          .subscribe(x => {
+            //save user in global prop
+            this.userService.currentUser = x;
+            //check promissing
+            this.userService.checkDepartment();
+          }, () => {
+            //faild login
+            this.router.navigate(['/home']);
+          });
       });
-    });
-
   }
+
 
   submitRegister() {
 
@@ -83,55 +81,41 @@ export class SignInComponent {
       if (this.formGroup.controls["remember"].value == true) {
         //checked remember me save ip
         this.userService.getIp()
-        .subscribe(res => {
-          user.ip = res.ip;
-          this.signIn(user, pass);
-        });
+          .subscribe(res => {
+            user.ip = res.ip;
+            this.signIn(user, pass);
+          });
       }
       else this.signIn(user, pass);
     });
   }
 
+
   signIn(user: LoginUser, lastPassword): any {
-
-    debugger;
     this.userService.signInUser(user)
-    .subscribe(data => {
-      this.userService.currentUser = data;
-
-      //check premmesion
-      this.userService.checkDepartment();
-
-    },
-      err => {
-        user.password = lastPassword;
-
-        swal({
-          type: 'error',
-          title: 'Oops...',
-          text: err.errors,
-        })
-      });
+      .subscribe(data => {
+        this.userService.currentUser = data;
+        //check premmesion
+        this.userService.checkDepartment();
+      },
+        err => {
+          user.password = lastPassword;
+          this.managerService.getErrorMessage();
+        });
   }
 
   forgetPassword() {
     this.userService.forgetPassword(this.formGroup.controls['userName'].value)
       .subscribe(() => {
-      swal({
-        type: 'success',
-        title: 'We send you a email to change your password',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    },
-     err => {
-      {
         swal({
-          type: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
+          type: 'success',
+          title: 'We send you a email to change your password',
+          showConfirmButton: false,
+          timer: 1500
         })
-      }
-    });
+      },
+        () => {
+        this.managerService.getErrorMessage();
+        });
   }
 }

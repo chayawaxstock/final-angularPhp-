@@ -1,5 +1,5 @@
 <div class="card-group" *ngIf="projects&&projects.length>0">
   <div *ngFor="let item of projects">
-    <app-worker-project-template [project]="item" [isClick]="isClick" (clickWork)="clickWork($event)" ></app-worker-project-template>
+    <app-worker-project-template [project]="item" [isClick]="isClick" (clickWork)="clickWork($event)"></app-worker-project-template>
   </div>
 </div>

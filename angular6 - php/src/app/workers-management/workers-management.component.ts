@@ -17,7 +17,7 @@ import { User } from '../shared/models/user';
 })
 export class WorkersManagementComponent implements OnInit {
 
-       //----------------PROPERTIRS-------------------
+    //----------------PROPERTIRS-------------------
     public view: Observable<GridDataResult>;
     public gridState: State = {
         sort: [],
@@ -29,19 +29,17 @@ export class WorkersManagementComponent implements OnInit {
     public isNew: boolean;
     private editService: EditService;
     @Input()
-    isShow:number;
+    isShow: number;
 
-      //----------------CONSTRUCTOR------------------
+    //----------------CONSTRUCTOR------------------
     constructor(@Inject(EditService) editServiceFactory: any, public managerService: ManagerService) {
         this.editService = editServiceFactory();
     }
 
-  //----------------METHODS-------------------
+    //----------------METHODS-------------------
     public ngOnInit(): void {
-
         this.view = this.editService.pipe(map(data => process(data, this.gridState)));
         this.editService.read();
-        
     }
 
     public onStateChange(state: State) {
@@ -81,23 +79,17 @@ export class WorkersManagementComponent implements OnInit {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                debugger;
                 this.managerService.deleteUser(dataItem.userId)
-                .subscribe(() => {
-                    swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                    this.editService.remove(dataItem);
-                }, err => {
-                    swal({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: err.errors,
-
-                    })
-                });
+                    .subscribe(() => {
+                        swal(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        this.editService.remove(dataItem);
+                    }, err => {
+                        this.managerService.getErrorMessage();
+                    });
             }
         })
 

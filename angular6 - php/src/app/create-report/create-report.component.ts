@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ExcelService } from '../shared/services/excel.service';
-import { ExcelExportData } from '@progress/kendo-angular-excel-export';
 import { process } from '@progress/kendo-data-query';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { State, CompositeFilterDescriptor, filterBy } from '@progress/kendo-data-query';

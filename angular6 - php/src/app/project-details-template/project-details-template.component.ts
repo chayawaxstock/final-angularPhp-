@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProjectDetailsTemplateComponent implements OnInit {
 
-     //----------------PROPERTIRS-------------------
+ //----------------PROPERTIRS-------------------
   @Input()
   project: Project;
   workersForProject: ProjectWorker[];
@@ -20,13 +20,13 @@ export class ProjectDetailsTemplateComponent implements OnInit {
   toggle: boolean = false;
 
 
-  //----------------CONSTRUCTOR------------------
+ //----------------CONSTRUCTOR------------------
   constructor(
     public teamleaderService: TeamleaderService, 
     public router: Router) {
   }
 
-
+ //----------------METHODS-------------------
   ngOnInit(): void {
     if (this.project) {
       this.teamleaderService.getSumStayByProjectAndDepartment(this.project.projectId)

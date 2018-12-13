@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HourForDepartment } from '../shared/models/hourForDepartment';
 
 @Component({
@@ -6,16 +6,14 @@ import { HourForDepartment } from '../shared/models/hourForDepartment';
   templateUrl: './edit-hours-for-department.component.html',
   styleUrls: ['./edit-hours-for-department.component.css']
 })
-export class EditHoursForDepartmentComponent  {
+export class EditHoursForDepartmentComponent {
 
-  
-  @Input()hourForDepartent:HourForDepartment;
- 
+  @Input() hourForDepartent: HourForDepartment;
+
   @Output() numDepartment: EventEmitter<HourForDepartment> = new EventEmitter<HourForDepartment>();
-  
-  changeNumHour()
-  {
-    this.numDepartment.emit(this.hourForDepartent) ;
+
+  changeNumHour() {
+    this.numDepartment.emit(this.hourForDepartent);
   }
 
 }
